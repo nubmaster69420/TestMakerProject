@@ -1,7 +1,7 @@
 from docx import Document
 
 
-def write_docx(tasks_dict, doxc_path):
+def write_docx(tasks_dict, docx_path):
     tasks_document = Document()
 
     for key_variant in tasks_dict.keys():
@@ -30,7 +30,7 @@ def write_docx(tasks_dict, doxc_path):
                 f'{n + 1}. {task_dict["answer"]}'
             )
 
-    tasks_document.save(doxc_path)
+    tasks_document.save(docx_path)
 
 
 if __name__ == '__main__':
