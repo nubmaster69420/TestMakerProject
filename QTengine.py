@@ -279,10 +279,19 @@ class MainWindow(QMainWindow):
             )
 
     def save_file_as(self):
+        # I had no time before the deadline to add more file formats to save tasks, so I set only Word(.docx)
+        '''
         self.save_file_path = QFileDialog.getSaveFileName(
             self, 'Choose a file with tasks', '',
             'Word file(*.docx);;Excel file(*.xlsx);;CSV file (*.csv)'
         )
+        '''
+        
+        self.save_file_path = QFileDialog.getSaveFileName(
+            self, 'Choose a file with tasks', '',
+            'Word file(*.docx)'
+        )
+        
 
         if self.save_file_path == ('', ''):
             return
