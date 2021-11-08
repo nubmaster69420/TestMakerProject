@@ -10,7 +10,7 @@ from pprint import pprint
 # Exporting own-made functions from other files
 from ExcelCSVformating import getdata
 from MakeVariants import make_variants
-from WordWrite import write_doxc
+from WordWrite import write_docx
 
 
 class MainWindow(QMainWindow):
@@ -169,12 +169,12 @@ class MainWindow(QMainWindow):
                         i, j, QTableWidgetItem(str(elem))
                     )
 
-    '''
+    """
     I didn't expect that type of data, I thought the function load_table could display this.
     I had two ways to solve this problem: 
     The first one is rewriting a function that making a list of variants
     And the second one is just writing a new function which displays data like self.total_variants
-    '''
+    """
 
     # A function, which loads a dict of lists of dicts which contain tasks to QTable
     def load_variants_table(self, tasks_dict_data, total_rows):
@@ -280,18 +280,17 @@ class MainWindow(QMainWindow):
 
     def save_file_as(self):
         # I had no time before the deadline to add more file formats to save tasks, so I set only Word(.docx)
-        '''
+        """
         self.save_file_path = QFileDialog.getSaveFileName(
             self, 'Choose a file with tasks', '',
             'Word file(*.docx);;Excel file(*.xlsx);;CSV file (*.csv)'
         )
-        '''
-        
+        """
+
         self.save_file_path = QFileDialog.getSaveFileName(
             self, 'Choose a file with tasks', '',
             'Word file(*.docx)'
         )
-        
 
         if self.save_file_path == ('', ''):
             return
@@ -304,7 +303,7 @@ class MainWindow(QMainWindow):
         else:
             path, file_format = self.save_file_path
             if file_format == 'Word file(*.docx)':
-                write_doxc(self.total_variants, path)
+                write_docx(self.total_variants, path)
 
             # Showing a message box
             self.success_window()

@@ -1,7 +1,7 @@
 from docx import Document
 
 
-def write_doxc(tasks_dict, doxc_path):
+def write_docx(tasks_dict, doxc_path):
     tasks_document = Document()
 
     for key_variant in tasks_dict.keys():
@@ -55,4 +55,4 @@ if __name__ == '__main__':
             {'answer': '16', 'number': 3, 'task': '4 * 4'}
         ]
     }
-    write_doxc(demo_data, 'test.docx')
+    write_docx(demo_data, 'test.docx')
