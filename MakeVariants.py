@@ -47,7 +47,7 @@ def make_variants(dict_tasks, num_of_variants, retake=False):
     max_num_of_tasks = len(max(filtered_tasks, key=len))  # Finding the maximum number task in all types
 
     # Creating an original list of different variations by product from itertools for backup in future
-    variants_t_original = [_v for _v in product(range(max_num_of_tasks), repeat=num_of_tasks_in_var)][:num_of_variants]
+    variants_t_original = [_v for _v in product(range(max_num_of_tasks), repeat=num_of_tasks_in_var)]
     variants_t = variants_t_original.copy()  # Copying the original list
 
     # Packing in dictionaries.
@@ -73,10 +73,18 @@ def make_variants(dict_tasks, num_of_variants, retake=False):
     # Creation of a variant for a retake:
     if retake:
         zero_v = []
-        for _i in range(num_of_tasks_in_var):
-            _v = choice(list(total_variants.keys()))  # Choosing a random task from all of the variants.
-            zero_v.append(total_variants[_v][_i])
-        total_variants[0] = zero_v
+        if num_of_variants == 1:
+            _v = choice(variants_t) # Choosing a random variant from unused.
+            for _i, _n in enumerate(_v):
+                # Searching and adding task by a unique combination.
+                # [_n % len(filtered_tasks[_i])] saving from an index error if the numbers of the tasks are not equal.
+                zero_v.append(filtered_tasks[_i][_n % len(filtered_tasks[_i])])
+            total_variants[0] = zero_v
+        else:
+            for _i in range(num_of_tasks_in_var):
+                _v = choice(list(total_variants.keys()))  # Choosing a random task from all of the variants.
+                zero_v.append(total_variants[_v][_i])
+            total_variants[0] = zero_v
         num_of_variants += 1  # Due ti making one more variant the number was raised
 
     return {
@@ -112,11 +120,8 @@ if __name__ == '__main__':
             'number': 2,
             'task': '4 * 4',
             'answer': '16'
-        }, {
-            'number': 3,
-            'task': '4 * 4',
-            'answer': '16'
         }
+
     ]
-    t = make_variants(demo_data, 3, True)
+    t = make_variants(demo_data, 1, True)
     pprint(t)
